@@ -1,7 +1,7 @@
 import { NativeModules } from 'react-native';
 
 type TextRecognitionType = {
-  multiply(a: number, b: number): Promise<number>;
+  recognize(imagePath: string): Promise<string>;
 };
 
 const { TextRecognition } = NativeModules;
