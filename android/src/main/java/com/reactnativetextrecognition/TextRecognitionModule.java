@@ -7,20 +7,14 @@ import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.module.annotations.ReactModule;
 
 // Deps
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraManager;
-import android.os.Build;
 import android.util.Log;
-import android.net.Uri;
-import android.util.SparseIntArray;
-import android.view.Surface;
-
 import java.io.IOException;
 
 // ML
@@ -69,6 +63,13 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
               @Override
               public void onSuccess(Text visionText) {
                 Log.v(getName(), visionText.getText());
+                WritableArray textBlocks = new WritableNativeArray();
+
+                for (Text.TextBlock block : visionText.getTextBlocks()) {
+                  textBlocks.pushString(block.getText());
+                }
+
+                promise.resolve(textBlocks);
               }
             })
             .addOnFailureListener(
@@ -76,6 +77,7 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                   Log.w(getName(), e);
+                  promise.reject("something went wrong", e.getMessage());
                 }
               });
       } else {
@@ -97,35 +99,4 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
 
     return BitmapFactory.decodeFile(path, new BitmapFactory.Options());
   }
-
-//  private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
-//  static {
-//    ORIENTATIONS.append(Surface.ROTATION_0, 0);
-//    ORIENTATIONS.append(Surface.ROTATION_90, 90);
-//    ORIENTATIONS.append(Surface.ROTATION_180, 180);
-//    ORIENTATIONS.append(Surface.ROTATION_270, 270);
-//  }
-//
-//  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-//  private int getRotationCompensation(String cameraId, Activity activity, boolean isFrontFacing)
-//    throws CameraAccessException {
-//    // Get the device's current rotation relative to its "native" orientation.
-//    // Then, from the ORIENTATIONS table, look up the angle the image must be
-//    // rotated to compensate for the device's rotation.
-//    int deviceRotation = activity.getWindowManager().getDefaultDisplay().getRotation();
-//    int rotationCompensation = ORIENTATIONS.get(deviceRotation);
-//
-//    // Get the device's sensor orientation.
-//    CameraManager cameraManager = (CameraManager) activity.getSystemService(CAMERA_SERVICE);
-//    int sensorOrientation = cameraManager
-//      .getCameraCharacteristics(cameraId)
-//      .get(CameraCharacteristics.SENSOR_ORIENTATION);
-//
-//    if (isFrontFacing) {
-//      rotationCompensation = (sensorOrientation + rotationCompensation) % 360;
-//    } else { // back-facing
-//      rotationCompensation = (sensorOrientation - rotationCompensation + 360) % 360;
-//    }
-//    return rotationCompensation;
-//  }
 }
