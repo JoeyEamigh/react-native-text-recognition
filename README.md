@@ -1,7 +1,5 @@
 # React-Native-Text-Recognition
 
-⚠️ WORKS FOR iOS ONLY ⚠️
-
 Text recognition utilizing the Vision framework on iOS and Firebase ML on Android
 
 ## Installation
@@ -41,6 +39,26 @@ import TextRecognition from 'react-native-text-recognition';
 
 const result = await TextRecognition.recognize('/var/mobile/...');
 ```
+
+### Configuration and Options
+
+There is an optional configuration object affecting iOS vision only. It includes one key, `visionIgnoreThreshold` which is a number (<= 1).
+
+```ts
+type TextRecognitionOptions = {
+  visionIgnoreThreshold?: number;
+};
+```
+
+It is used at the end of the `recognize` function:
+
+```js
+const result = await TextRecognition.recognize('/var/mobile/...', {
+  visionIgnoreThreshold: 0.5,
+});
+```
+
+The only thing that this changes is whether or not to return a recognized string based on the Vision Framework's "confidence." You can read more at [https://developer.apple.com/documentation/vision/vnobservation/2867220-confidence/](https://developer.apple.com/documentation/vision/vnobservation/2867220-confidence/)
 
 ## Contributing
 
