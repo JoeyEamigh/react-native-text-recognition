@@ -1,6 +1,6 @@
 # React-Native-Text-Recognition
 
-⚠️ THIS DOES NOT WORK YET - HOLD ON ⚠️
+⚠️ WORKS FOR iOS ONLY ⚠️
 
 Text recognition utilizing the Vision framework on iOS and Firebase ML on Android
 
