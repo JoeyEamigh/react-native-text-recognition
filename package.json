@@ -1,6 +1,6 @@
 {
   "name": "react-native-text-recognition",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "text recognition utilizing the Vision framework on iOS and Firebase ML on Android",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
