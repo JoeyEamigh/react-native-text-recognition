@@ -20,7 +20,7 @@ npm install react-native-text-recognition
 
 ### iOS:
 
-<b>Make sure that your Podfile's minimum deployment target is 11.0 or greater!!</b>
+<b>Make sure that your Podfile's minimum deployment target is 13.0 or greater!!</b>
 
 If you get an error about "Could not find or use auto-linked library 'xxxxx'" then add the following to your project's Build Settings under LIBRARY_SEARCH_PATHS:
 
