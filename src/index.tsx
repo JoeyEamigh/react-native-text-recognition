@@ -17,10 +17,7 @@ async function recognize(
   imagePath: string,
   options?: TextRecognitionOptions
 ): Promise<string[]> {
-  return Platform.select({
-    ios: await TextRecognition.recognize(imagePath, options || {}),
-    android: await TextRecognition.recognize(imagePath),
-  });
+  return await TextRecognition.recognize(imagePath, options || {});
 }
 
 export default { recognize } as TextRecognitionType;

@@ -1,12 +1,13 @@
 package com.reactnativetextrecognition;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.module.annotations.ReactModule;
@@ -45,7 +46,7 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
 
 
   @ReactMethod
-  public void recognize(String imgPath, Promise promise) {
+  public void recognize(String imgPath, @Nullable final ReadableMap options, Promise promise) {
     Log.v(getName(), "image path: " + imgPath);
 
     try {
