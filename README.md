@@ -1,6 +1,8 @@
 # React-Native-Text-Recognition
 
-Very basic text recognition utilizing the Vision framework on iOS and Firebase ML on Android
+Very basic text recognition utilizing Firebase ML
+
+⚠️ This is currently just a mirror of the main branch. Development starting soon! ⚠️
 
 ## Installation
 
