@@ -46,7 +46,7 @@ public class TextRecognitionModule extends ReactContextBaseJavaModule {
 
 
   @ReactMethod
-  public void recognize(String imgPath, @Nullable final ReadableMap options, Promise promise) {
+  public void recognize(String imgPath, Promise promise) {
     Log.v(getName(), "image path: " + imgPath);
 
     try {
