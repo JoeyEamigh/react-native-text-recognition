@@ -5,13 +5,13 @@ Very basic text recognition utilizing Firebase ML for both iOS and Android
 ## Installation
 
 ```sh
-yarn add react-native-text-recognition@vision
+yarn add react-native-text-recognition@ml
 ```
 
 or with NPM:
 
 ```sh
-npm install react-native-text-recognition@vision
+npm install react-native-text-recognition@ml
 ```
 
 <hr>
