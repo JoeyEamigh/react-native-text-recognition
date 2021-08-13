@@ -2,7 +2,7 @@
 
 Very basic text recognition utilizing the Vision framework on iOS and Firebase ML on Android
 
-I am planning on creating a version that utilizes Firebase ML on both iOS and Android. Stay tuned on the [ml-only](https://github.com/JoeyEamigh/react-native-text-recognition/tree/ml-only) branch!
+I also have a version that utilizes Firebase ML on both iOS and Android. You can check that out or install it on the [ml-only](https://github.com/JoeyEamigh/react-native-text-recognition/tree/ml-only) branch!
 
 ## Installation
 
