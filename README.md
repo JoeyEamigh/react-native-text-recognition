@@ -38,6 +38,10 @@ import TextRecognition from 'react-native-text-recognition';
 const result = await TextRecognition.recognize('/var/mobile/...');
 ```
 
+### Android:
+
+If you are using [react-native-camera](https://github.com/react-native-camera/react-native-camera) and not getting good reads back, set `fixOrientation: true` in the settings for `takePictureAsync`. This will cause a noticable delay in processing but fix the issue. This is most common (for me) on OnePlus phones.
+
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
