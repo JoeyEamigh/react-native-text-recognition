@@ -16,6 +16,12 @@ npm install react-native-text-recognition@ml
 
 <hr>
 
+### Android
+
+When using a version >= 1.1.0 Android is using MLKit v2 Beta, which simply means that you do not need Google Play services to use MLKit. If you want your app binary to be smaller and are sure that all devices installing the app will have Google Play, use version 1.0.1.
+
+<hr>
+
 ### iOS:
 
 If you get an error about "Could not find or use auto-linked library 'xxxxx'" then add the following to your project's Build Settings under LIBRARY_SEARCH_PATHS:
