@@ -1,3 +1,6 @@
+ext {
+  reactNativeVersion = '+'
+}
 buildscript {
     if (project == rootProject) {
         repositories {
@@ -55,7 +58,7 @@ repositories {
 
 dependencies {
     //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:16.3.0'
+    implementation "com.facebook.react:react-native:${reactNativeVersion}"  // From node_modules
+    implementation 'com.google.mlkit:text-recognition:16.0.0-beta1'
 
 }
