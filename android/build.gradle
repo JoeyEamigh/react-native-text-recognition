@@ -18,11 +18,11 @@ def safeExtGet(prop, fallback) {
 }
 
 android {
-    compileSdkVersion safeExtGet('TextRecognition_compileSdkVersion', 29)
-    buildToolsVersion safeExtGet('TextRecognition_buildToolsVersion', '29.0.2')
+    compileSdkVersion safeExtGet('TextRecognition_compileSdkVersion', 31)
+    buildToolsVersion safeExtGet('TextRecognition_buildToolsVersion', '31.0.0')
     defaultConfig {
         minSdkVersion safeExtGet('TextRecognition_minSdkVersion', 16)
-        targetSdkVersion safeExtGet('TextRecognition_targetSdkVersion', 29)
+        targetSdkVersion safeExtGet('TextRecognition_targetSdkVersion', 31)
         versionCode 1
         versionName "1.0"
 
