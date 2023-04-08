@@ -1,8 +1,8 @@
 import { NativeModules } from 'react-native';
 
 export type ResultBlock = {
-  text: string
-  languageCode: string
+  text: string // "Hello World", "안녕하세요 세계", etc
+  languageCode: string // e.g. "en-US", "ko-KR", etc
 }
 
 export type TextRecognitionResult = ResultBlock[]
