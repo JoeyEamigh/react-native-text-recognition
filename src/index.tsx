@@ -1,5 +1,12 @@
 import { NativeModules } from 'react-native';
 
+export type ResultBlock = {
+  text: string
+  languageCode: string
+}
+
+export type TextRecognitionResult = ResultBlock[]
+
 export type TextRecognitionOptions = {
   visionIgnoreThreshold?: number;
   automaticallyDetectLanguage?: boolean,
@@ -10,7 +17,7 @@ type TextRecognitionType = {
   recognize(
     imagePath: string,
     options?: TextRecognitionOptions
-  ): Promise<string[]>;
+  ): Promise<TextRecognitionResult[]>;
 };
 
 const { TextRecognition } = NativeModules;
@@ -34,7 +41,7 @@ type SupportedLanuages = "en-US" | "fr-FR" | "it-IT" | "de-DE" | "es-ES" | "pt-B
 async function recognize(
   imagePath: string,
   options?: TextRecognitionOptions
-): Promise<string[]> {
+): Promise<TextRecognitionResult[]> {
   return await TextRecognition.recognize(imagePath, options || {});
 }
 
