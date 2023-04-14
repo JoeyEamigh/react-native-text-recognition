@@ -3,14 +3,25 @@ import { NativeModules } from 'react-native';
 export type ResultBlock = {
   text: string // "Hello World", "안녕하세요 세계", etc
   languageCode: string // e.g. "en-US", "ko-KR", etc
+  leftX: number
+  middleX: number
+  rightX: number
+  bottomY: number
+  middleY: number
+  topY: number
+  width: number
+  height: number
 }
 
 export type TextRecognitionResult = ResultBlock[]
 
 export type TextRecognitionOptions = {
-  visionIgnoreThreshold?: number;
+  visionIgnoreThreshold?: number,
   automaticallyDetectLanguage?: boolean,
   recognitionLanguages?: SupportedLanuages[],
+  useLanguageCorrection?: boolean,
+  recognitionLevel?: RecognitionLevel,
+  customWords?: string[],
 };
 
 type TextRecognitionType = {
@@ -37,6 +48,7 @@ const { TextRecognition } = NativeModules;
  *
  */
 type SupportedLanuages = "en-US" | "fr-FR" | "it-IT" | "de-DE" | "es-ES" | "pt-BR" | "zh-Hans" | "zh-Hant" | "yue-Hans" | "yue-Hant" | "ko-KR" | "ja-JP" | "ru-RU" | "uk-UA"
+type RecognitionLevel = "fast" | "accurate";
 
 async function recognize(
   imagePath: string,
