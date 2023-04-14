@@ -77,7 +77,7 @@ class TextRecognition: NSObject {
 
       if autoDetectLanguage {
         if #available(iOS 16.0, *) {
-          ocrRequest.automaticallyDetectLanguage = true
+          ocrRequest.automaticallyDetectsLanguage = true
         } else {
           ocrRequest.recognitionLanguages = languages
         }
