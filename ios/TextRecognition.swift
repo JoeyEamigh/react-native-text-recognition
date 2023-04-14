@@ -8,8 +8,10 @@ extension String {
   }
 }
 
+@available(iOS 13.0, *) // VNRecognizeTextRequest is a class introduced in the Vision framework in iOS 13.0
 @objc(TextRecognition)
 class TextRecognition: NSObject {
+  @objc static func requiresMainQueueSetup() -> Bool { return true } // true, if the module needs to be initialized on the main thread
   @objc(recognize:withOptions:withResolver:withRejecter:)
   func recognize(imgPath: String, options: [String: Any], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
     guard !imgPath.isEmpty else { reject("ERR", "You must include the image path", nil); return }
@@ -20,7 +22,7 @@ class TextRecognition: NSObject {
     var languages = ["en-US"]
     var autoDetectLanguage = true
     var customWords: [String] = []
-    var useLanguageCorrection = false
+    var usesLanguageCorrection = false
     var recognitionLevel: VNRequestTextRecognitionLevel = .accurate
 
     if let ignoreThreshold = options["visionIgnoreThreshold"] as? Float, !ignoreThreshold.isZero {
@@ -40,7 +42,7 @@ class TextRecognition: NSObject {
     }
 
     if let usesCorrection = options["usesLanguageCorrection"] as? Bool {
-      useLanguageCorrection = usesCorrection
+      usesLanguageCorrection = usesCorrection
     }
 
     if let level = options["recognitionLevel"] as? String, level == "fast" {
@@ -75,8 +77,8 @@ class TextRecognition: NSObject {
        ["en-US", "fr-FR", "it-IT", "de-DE", "es-ES", "pt-BR"]
        */
 
-      if autoDetectLanguage {
-        if #available(iOS 16.0, *) {
+      if #available(iOS 16.0, *) {
+        if autoDetectLanguage {
           ocrRequest.automaticallyDetectsLanguage = true
         } else {
           ocrRequest.recognitionLanguages = languages
@@ -86,7 +88,7 @@ class TextRecognition: NSObject {
       }
 
       ocrRequest.customWords = customWords
-      ocrRequest.usesLanguageCorrection = useLanguageCorrection
+      ocrRequest.usesLanguageCorrection = usesLanguageCorrection
       ocrRequest.recognitionLevel = recognitionLevel
 
       try requestHandler.perform([ocrRequest])
@@ -111,12 +113,23 @@ class TextRecognition: NSObject {
 
       let languageCode = language?.rawValue
 
-      return ["text": recognizedText, "languageCode": languageCode ?? "[Unknown]"]
+      return ["text": recognizedText as String,
+              "languageCode": languageCode ?? "unknown" as String,
+              "confidence": topCandidate.confidence as Any,
+              // "x": observation.boundingBox.origin.x as Any,
+              // "y": observation.boundingBox.origin.y as Any,
+              "leftX": observation.boundingBox.minX as Any,
+              "middleX": observation.boundingBox.midX as Any,
+              "rightX": observation.boundingBox.maxX as Any,
+              "bottomY": 1 - observation.boundingBox.minY as Any,
+              "middleY": 1 - observation.boundingBox.midY as Any,
+              "topY": 1 - observation.boundingBox.maxY as Any,
+              "width": observation.boundingBox.width as Any,
+              "height": observation.boundingBox.height as Any]
     }
 
     // Debug
     // print(recognizedStrings)
-
     resolve(recognizedStrings)
   }
 }
