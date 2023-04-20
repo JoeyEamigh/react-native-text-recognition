@@ -14,7 +14,55 @@ export type ResultBlock = {
   height: number
 }
 
-export type TextRecognitionResult = ResultBlock[]
+export type StringProperties = {
+  text: string // "Hello World", "안녕하세요 세계", etc
+  languageCode: string // e.g. "en-US", "ko-KR", etc
+  confidence: number
+  leftX: number
+  middleX: number
+  rightX: number
+  bottomY: number
+  middleY: number
+  topY: number
+  width: number
+  height: number
+}
+
+export type ImageProperties = {
+  ColorModel: string
+  Depth: number
+  DPIHeight: number
+  DPIWidth: number
+  HasAlpha: boolean
+  Orientation: number
+  PixelHeight: number
+  PixelWidth: number
+  ProfileName: string
+  "{Exif}": Exif
+  "{JFIF}": Jfif
+  "{TIFF}": Tiff
+  "{PNG}": PNG
+}
+
+export type Exif = {
+  ColorSpace: number
+  PixelXDimension: number
+  PixelYDimension: number
+}
+export type Jfif = {
+  DensityUnit: number
+  JFIFVersion: number[]
+  XDensity: number
+  YDensity: number
+}
+export type Tiff = {
+  Orientation: number
+}
+export type PNG = {
+  InterlaceType: number
+  XPixelsPerMeter: number
+  YPixelsPerMeter: number
+}
 
 export type TextRecognitionOptions = {
   visionIgnoreThreshold?: number,
@@ -24,6 +72,11 @@ export type TextRecognitionOptions = {
   recognitionLevel?: RecognitionLevel,
   customWords?: string[],
 };
+
+export type TextRecognitionResult = {
+  stringProperties: StringProperties[],
+  imageProperties: ImageProperties
+}
 
 type TextRecognitionType = {
   recognize(
