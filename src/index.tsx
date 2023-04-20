@@ -1,6 +1,7 @@
 import { NativeModules } from 'react-native';
 
 export type ResultBlock = {
+  confidence: number
   text: string // "Hello World", "안녕하세요 세계", etc
   languageCode: string // e.g. "en-US", "ko-KR", etc
   leftX: number

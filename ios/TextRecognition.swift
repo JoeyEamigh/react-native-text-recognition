@@ -52,13 +52,15 @@ class TextRecognition: NSObject {
     do {
       let imgData = try Data(contentsOf: URL(fileURLWithPath: formattedImgPath))
       let image = UIImage(data: imgData)
+      let imageSource = CGImageSourceCreateWithData(imgData as CFData, nil)
+      let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource!, 0, nil)
 
       guard let cgImage = image?.cgImage else { return }
 
       let requestHandler = VNImageRequestHandler(cgImage: cgImage)
 
       let ocrRequest = VNRecognizeTextRequest { (request: VNRequest, error: Error?) in
-        self.recognizeTextHandler(request: request, threshold: threshold, error: error, resolve: resolve, reject: reject)
+        self.recognizeTextHandler(request: request, threshold: threshold, error: error, imageProperties: imageProperties, resolve: resolve, reject: reject)
       }
 
       /* Revision 3, .accurate, iOS 16 and higher
@@ -98,7 +100,7 @@ class TextRecognition: NSObject {
     }
   }
 
-  func recognizeTextHandler(request: VNRequest, threshold: Float, error _: Error?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
+  func recognizeTextHandler(request: VNRequest, threshold: Float, error _: Error?, imageProperties: CFDictionary?, resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
     guard let observations = request.results as? [VNRecognizedTextObservation] else { reject("ERR", "No text recognized.", nil); return }
 
     let recognizedStrings = observations.compactMap { observation -> [String: Any]? in
@@ -115,21 +117,23 @@ class TextRecognition: NSObject {
 
       return ["text": recognizedText as String,
               "languageCode": languageCode ?? "unknown" as String,
-              "confidence": topCandidate.confidence as Any,
+              "confidence": topCandidate.confidence as Float, // Any to Float
               // "x": observation.boundingBox.origin.x as Any,
               // "y": observation.boundingBox.origin.y as Any,
-              "leftX": observation.boundingBox.minX as Any,
-              "middleX": observation.boundingBox.midX as Any,
-              "rightX": observation.boundingBox.maxX as Any,
-              "bottomY": 1 - observation.boundingBox.minY as Any,
-              "middleY": 1 - observation.boundingBox.midY as Any,
-              "topY": 1 - observation.boundingBox.maxY as Any,
-              "width": observation.boundingBox.width as Any,
-              "height": observation.boundingBox.height as Any]
+              "leftX": Float(observation.boundingBox.minX),
+              "middleX": Float(observation.boundingBox.midX),
+              "rightX": Float(observation.boundingBox.maxX),
+              "bottomY": Float(1 - observation.boundingBox.minY),
+              "middleY": Float(1 - observation.boundingBox.midY),
+              "topY": Float(1 - observation.boundingBox.maxY),
+              "width": Float(observation.boundingBox.width),
+              "height": Float(observation.boundingBox.height)]
     }
 
     // Debug
     // print(recognizedStrings)
-    resolve(recognizedStrings)
+    // get textProperties and properties from image
+    let recognizedImageProperties = imageProperties as! [String: Any]
+    resolve(["stringProperties": recognizedStrings as Any, "imageProperties": recognizedImageProperties as Any])
   }
 }
