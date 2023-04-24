@@ -18,7 +18,7 @@ npm install react-native-text-recognition
 
 <hr>
 
-### iOS:
+### iOS
 
 <b>Make sure that your Podfile's minimum deployment target is 13.0 or greater!!</b>
 

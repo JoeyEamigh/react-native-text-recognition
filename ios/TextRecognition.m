@@ -8,4 +8,8 @@ RCT_EXTERN_METHOD(recognize
                   : (RCTPromiseResolveBlock)resolve withRejecter
                   : (RCTPromiseRejectBlock)reject)
 
++ (BOOL)requiresMainQueueSetup {
+  return NO;
+}
+
 @end
