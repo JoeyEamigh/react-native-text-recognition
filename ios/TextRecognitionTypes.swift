@@ -45,7 +45,17 @@ extension RNTROptions: Codable {
 }
 
 struct StringProperties {
-
+  let text: String
+  let languageCode: String
+  let confidence: Double
+  let leftX: Double
+  let middleX: Double
+  let rightX: Double
+  let bottomY: Double
+  let middleY: Double
+  let topY: Double
+  let width: Double
+  let height: Double
 }
 
 struct Exif {
@@ -87,7 +97,7 @@ struct ImageProperties {
   let PNG: PNG
 }
 
-//struct RecognitionResolve {
-//  let stringProperties
-//  let imageProperties
-//}
+struct RecognitionResolve {
+  let stringProperties: [StringProperties]
+  let imageProperties: ImageProperties
+}
