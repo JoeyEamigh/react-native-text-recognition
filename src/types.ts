@@ -1,17 +1,3 @@
-export type ResultBlock = {
-  confidence: number;
-  text: string; // "Hello World", "안녕하세요 세계", etc
-  languageCode: string; // e.g. "en-US", "ko-KR", etc
-  leftX: number;
-  middleX: number;
-  rightX: number;
-  bottomY: number;
-  middleY: number;
-  topY: number;
-  width: number;
-  height: number;
-};
-
 export type StringProperties = {
   /** "Hello World", "안녕하세요 세계", etc */
   text: string;
@@ -30,17 +16,20 @@ export type StringProperties = {
 
 export type ImageProperties = {
   ColorModel: string;
-  Depth: number;
   DPIHeight: number;
   DPIWidth: number;
   HasAlpha: boolean;
-  Orientation: number;
   PixelHeight: number;
   PixelWidth: number;
+  /** @variation iOS only */
   ProfileName: string;
+  /** @variation iOS only */
   '{Exif}': Exif;
+  /** @variation iOS only */
   '{JFIF}': Jfif;
+  /** @variation iOS only */
   '{TIFF}': Tiff;
+  /** @variation iOS only */
   '{PNG}': PNG;
 };
 
@@ -65,9 +54,12 @@ export type PNG = {
 };
 
 export type TextRecognitionOptions = {
+  /** @variation iOS only */
   visionIgnoreThreshold?: number;
+  /** @variation iOS only */
   automaticallyDetectLanguage?: boolean;
   /**
+   * @variation iOS only
    * @iOS16 and higher: Revision 3 .accurate
    * ["en-US", "fr-FR", "it-IT", "de-DE", "es-ES", "pt-BR", "zh-Hans", "zh-Hant", "yue-Hans", "yue-Hant", "ko-KR", "ja-JP", "ru-RU", "uk-UA"]
    *
@@ -82,8 +74,11 @@ export type TextRecognitionOptions = {
    *
    */
   recognitionLanguages?: SupportedLanguages[];
+  /** @variation iOS only */
   useLanguageCorrection?: boolean;
+  /** @variation iOS only */
   recognitionLevel?: RecognitionLevel;
+  /** @variation iOS only */
   customWords?: string[];
 };
 
