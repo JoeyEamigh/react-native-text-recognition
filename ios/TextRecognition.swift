@@ -9,6 +9,7 @@ extension String {
 
 @objc(TextRecognition)
 class TextRecognition: NSObject {
+  @objc static func requiresMainQueueSetup() -> Bool { return true }
   @objc(recognize:withOptions:withResolver:withRejecter:)
   func recognize(imgPath: String, options: [String: Float], resolve: @escaping RCTPromiseResolveBlock, reject: @escaping RCTPromiseRejectBlock) {
     guard !imgPath.isEmpty else { reject("ERR", "You must include the image path", nil); return }
