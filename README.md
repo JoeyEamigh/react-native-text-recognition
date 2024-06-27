@@ -2,6 +2,12 @@
 
 Very basic text recognition utilizing Firebase ML for both iOS and Android
 
+I also have a version that utilizes Firebase ML on both iOS and Android. You can check that out or install it on the [ml-only](https://github.com/JoeyEamigh/react-native-text-recognition/tree/ml-only) branch!
+
+## NOTE:
+
+I do not do much React Native anymore, so this project is largely unmaintained. If someone wants to join as a contributor, I would be happy have a conversation!
+
 ## Installation
 
 ```sh
