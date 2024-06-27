@@ -13,7 +13,7 @@ import Vision
 @available(iOS 13.0, *)  // VNRecognizeTextRequest is a class introduced in the Vision framework in iOS 13.0
 @objc(TextRecognition)
 class TextRecognition: NSObject {
-  //  @objc static func requiresMainQueueSetup() -> Bool { return true }  // true, if the module needs to be initialized on the main thread
+  @objc static func requiresMainQueueSetup() -> Bool { return true }
   @objc(recognize:withOptions:withResolver:withRejecter:)
   func recognize(
     imgPath: String,
